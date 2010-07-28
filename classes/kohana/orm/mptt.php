@@ -974,6 +974,28 @@ class Kohana_ORM_MPTT extends ORM {
 		return $right + 1;
 	}
 
+  
+  /**
+   * Generates a select list for dropdowns with indention
+   *
+	 * @access  public
+	 * @param   int|null only retrieve nodes with specified scope
+	 * @param   int number of spaces for indention
+	 * @return  array
+   **/
+  public function select_list($scope = NULL, $space = 4)
+  {
+    $list = array();
+    $tree = $this->fulltree($scope);
+    $adjust = $tree->current()->{$this->level_column};
+    foreach($tree AS $branch)
+    {
+      $list[$branch->{$this->_primary_key}] = str_repeat('&nbsp;', ($branch->{$this->level_column} - $adjust) * $space).$branch->{$this->_primary_val};
+    }
+
+    return $list;
+  }
+
 	/**
 	 * Magic get function, maps field names to class functions.
 	 * 
