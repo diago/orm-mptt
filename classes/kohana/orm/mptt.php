@@ -10,6 +10,7 @@
  * @author Paul Banks
  * @author Brotkin Ivan
  * @author Brandon Summers
+ * @package ORM_MPTT
  */
 
 class Kohana_ORM_MPTT extends ORM {
