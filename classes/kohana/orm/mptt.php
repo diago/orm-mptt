@@ -684,7 +684,7 @@ class Kohana_ORM_MPTT extends ORM {
 	 * @param   bool    only retrieve nodes with specified scope
 	 * @return  object
 	 */
-	public function fulltree($scope = NULL)
+	public function fulltree($scope = NULL, $max_depth = NULL)
 	{
 		$result = self::factory($this->object_name());
 
@@ -697,6 +697,11 @@ class Kohana_ORM_MPTT extends ORM {
 			$result->order_by($this->scope_column, 'ASC')
 					->order_by($this->left_column, 'ASC');
 		}
+
+    if( ! is_null($max_depth))
+    {
+      $result->where($this->level_column, '<=', $max_depth); 
+    }
 
 		return $result->find_all();
 	}
@@ -984,10 +989,10 @@ class Kohana_ORM_MPTT extends ORM {
 	 * @param   int number of spaces for indention
 	 * @return  array
    **/
-  public function select_list($scope = NULL, $space = 4)
+  public function select_list($scope = NULL, $max_depth = NULL, $space = 4)
   {
     $list = array();
-    $tree = $this->fulltree($scope);
+    $tree = $this->fulltree($scope, $max_depth);
     $adjust = $tree->current()->{$this->level_column};
     foreach($tree AS $branch)
     {

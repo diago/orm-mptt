@@ -100,7 +100,7 @@ class Kohana_Tree
    * @param ORM_MPTT record
    * @return array
    **/
-  public static function get_column_names(ORM_MPTT $record)
+  public static function get_column_names($record)
   {
 
     $cols = array();
