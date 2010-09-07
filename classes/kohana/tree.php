@@ -88,7 +88,9 @@ class Kohana_Tree
     }
 
     // close the list
-    $built .= str_repeat('</li>'.$close, ($level - $start) + 1);
+    $repeat = $level - $start;
+    $repeat = (bool) $repeat ? $repeat : 1;
+    $built .= str_repeat('</li>'.$close, $repeat);
 
     return $built;
   }
