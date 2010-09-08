@@ -119,7 +119,7 @@ class Kohana_ORM_MPTT extends ORM {
 			$target = self::factory($this->object_name(), $target);
 		}
 
-		return ($this->parent->pk() === $target->pk());
+		return ($this->{$this->parent_column} === $target->pk());
 	}
 
 	/**
@@ -136,7 +136,7 @@ class Kohana_ORM_MPTT extends ORM {
 			$target = self::factory($this->object_name(), $target);
 		}
 
-		return ($this->pk() === $target->parent->pk());
+		return ($this->pk() === $target->{$this->parent_column});
 	}
 
 	/**
@@ -157,7 +157,7 @@ class Kohana_ORM_MPTT extends ORM {
 		if ($this->pk() === $target->pk())
 			return FALSE;
 
-		return ($this->parent->pk() === $target->parent->pk());
+		return ($this->{$this->parent_column} === $target->{$target->parent_column});
 	}
 
 	/**
