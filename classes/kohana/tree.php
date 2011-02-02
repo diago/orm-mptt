@@ -54,6 +54,7 @@ class Kohana_Tree
     unset($current);
 
     $first = TRUE;
+    $child_list = FALSE;
 
     foreach($records AS $r)
     {
@@ -68,9 +69,15 @@ class Kohana_Tree
       if($r->$cols['level'] > $level)
       {
         $built .= $open;
+        $child_list = TRUE;
       }
       else if($r->$cols['level'] < $level) // close the list
       {
+        if($child_list)
+        {
+          $built .= '</li>';
+          $child_list = FALSE;
+        }
         // figure out how many levels we went down
         $built .= str_repeat($close.'</li>', ($level - $r->$cols['level']));
       }
